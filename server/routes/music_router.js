@@ -27,4 +27,16 @@ router.post('/', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    console.log("DELETE this:", req.params.id);
+    let queryText = `DELETE FROM "songs" WHERE "id" = $1;`;
+    pool.query(queryText, [req.params.id]).then( (result) => {     
+        // console.log('We have results!', result);
+        res.sendStatus(200); // OK
+    }).catch( (error) => {
+        console.log( 'Error making query:', error );
+        res.sendStatus(500); // internal server error
+    });
+});
+
 module.exports = router;
