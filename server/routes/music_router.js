@@ -34,9 +34,10 @@ let musicLibrary = [
     }
 ]
 
-router.get('/', (req, res) => {
-    res.send(musicLibrary);
-});
+// router.get('/', (req, res) => {
+//     // res.send(musicLibrary);
+//     let queryText = `SELECT * FROM "songs";`;
+// });
 
 router.post('/', (req, res) => {
     console.log("HELLO FROM THE POST", req.body);
