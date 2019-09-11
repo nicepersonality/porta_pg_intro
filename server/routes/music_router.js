@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         res.send(result.rows);
     }).catch( (error) => {
         console.log( 'Error making query:', error );
-        res.sendStatus(500);
+        res.sendStatus(500); // internal server error
     });
 });
 
@@ -20,10 +20,10 @@ router.post('/', (req, res) => {
     VALUES ('${newSong.artist}', '${newSong.track}', ${newSong.rank}, '${newSong.published}');`;
     pool.query(queryText).then( (result) => {
         console.log('Post result:', result);
-        res.sendStatus(201);
+        res.sendStatus(201); // created
     }).catch( (error) => {
         console.log( 'Error making query:', error );
-        res.sendStatus(500);
+        res.sendStatus(500); // internal server error
     });
 });
 
