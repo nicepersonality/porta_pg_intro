@@ -4,5 +4,12 @@ body{
 #tableWrapper, #tableWrapper td{
     border: 1px solid black;
     border-collapse: collapse;
-    padding: 10px;
+    padding: 5px 10px;
+}
+#tableWrapper td button {
+    border: none;
+    background: #eee;
+    font-size: 2rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
 }

@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 router.get('/', (req, res) => {
-    let queryText = `SELECT * FROM "songs";`;
+    let queryText = `SELECT * FROM "songs" ORDER BY "rank" ASC;`;
     pool.query(queryText).then( (result) => {     
         // console.log('We have results!', result);
         res.send(result.rows);
@@ -38,5 +38,28 @@ router.delete('/:id', (req, res) => {
         res.sendStatus(500); // internal server error
     });
 });
+
+router.put('/rank/:id', (req, res) => {
+    console.log(req.params.id, req.body.direction);
+    let songId = req.params.id;
+    let direction = req.body.direction;
+    let queryText = '';
+
+    if (direction == 'increase') {
+        queryText = `UPDATE "songs" SET "rank" = "rank" - 1 WHERE "id" = $1;`;
+    } else if (direction == 'decrease') {
+        queryText = `UPDATE "songs" SET "rank" = "rank" + 1 WHERE "id" = $1;`;
+    } else {
+        res.sendStatus(500);
+        return;
+    };
+    pool.query(queryText, [songId])
+    .then( () => {
+        res.sendStatus(200);
+    }).catch( (error) => {
+        console.log( 'Error making query:', error );
+        res.sendStatus(500); // internal server error
+    });
+})
 
 module.exports = router;
